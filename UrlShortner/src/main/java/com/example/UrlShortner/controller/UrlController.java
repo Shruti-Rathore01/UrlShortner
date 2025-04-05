@@ -13,7 +13,7 @@ public class UrlController {
     @Autowired
     public UrlService service;
 
-    @PostMapping(value = "/shorten", consumes = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping("/shorten")
     public String shortenUrl(@RequestBody String longUrl)
     {
         return service.shortenUrl(longUrl);
