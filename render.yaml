@@ -1,13 +1,10 @@
 services:
   - type: web
     name: url-shortener
-    env: node # 👈 use 'node' to skip Render's default runtime
+    env: node
     plan: free
     buildCommand: ./mvnw clean install
     startCommand: java -jar target/UrlShortner-0.0.1-SNAPSHOT.jar
     envVars:
       - key: JAVA_VERSION
         value: 21
-  git add render.yaml
-  git commit -m "Fix render.yaml to use correct runtime"
-  git push origin main
