@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickLinkr - URL Shortener</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #5C258D, #4389A2);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #00C9A7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00b192;
+        }
+
+        #shortResult {
+            margin-top: 20px;
+            font-size: 18px;
+            background-color: rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+        }
+
+        .brand {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00C9A7;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="brand">QuickLinkr</div>
+    <h2>Shorten a URL</h2>
+    <form id="shortenForm">
+        <input type="text" id="longUrl" placeholder="Enter the long URL" required>
+        <br>
+        <button type="submit">Shorten</button>
+    </form>
+    <p id="shortResult"></p>
+</div>
+
+<script>
+    document.getElementById("shortenForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const longUrl = document.getElementById("longUrl").value;
+
+        fetch("http://localhost:8080/api/url/shorten", {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain"
+            },
+            body: longUrl
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("shortResult").innerText = "Short URL: " + data;
+        })
+        .catch(error => {
+            document.getElementById("shortResult").innerText = "Error: " + error;
+        });
+    });
+</script>
+</body>
+</html>
